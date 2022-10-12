@@ -5,11 +5,49 @@ import 'dotenv/config';
 import db, { Role } from './src/database';
 const app = express();
 
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "jwt-auth-api",
+      version: "0.1.0",
+      description:
+        "CRUD API application with JWT auth made with Express and documented with Swagger",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+      contact: {
+        name: "David Costa",
+        url: "scostadavid.github.io",
+        email: "scostadavid@proton.me",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:8080/",
+      },
+    ],
+  },
+  apis: ['./src/routes/user.js'],
+};
+
+const specs = swaggerJsdoc(options);
+
 app.use(cors({
   origin: "http://localhost:8081"
 }));
 app.use(bodyParser.json()); // content-type - application/json
 app.use(bodyParser.urlencoded({ extended: true })); // content-type - application/x-www-form-urlencoded
+
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
 
 // DB
 // db.sequelize.sync(); // Prod environment

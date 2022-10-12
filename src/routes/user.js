@@ -4,6 +4,17 @@ import controller from '../controllers/user';
 
 const router = express.Router();
 
+
+/**
+ * @openapi
+ * /api/users/index:
+ *   get:
+ *     name: User
+ *     description: List all users!
+ *     responses:
+ *       200:
+ *         description: Returns a list of users.
+ */
 router.get(
   "/index",
   controller.index
@@ -32,4 +43,4 @@ router.get(
   controller.adminContent
 );
 
-module.exports = (app) => app.use('/api/test', router);
+module.exports = (app) => app.use('/api/users', router);
