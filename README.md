@@ -1,6 +1,6 @@
 # JWT Auth API
 
-Nodejs Rest API with authentication.
+Nodejs Express Rest API with authentication.
 <!--
 ![Preview](public/img/screenshot.png)
 
